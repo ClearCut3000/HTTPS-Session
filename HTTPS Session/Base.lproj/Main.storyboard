@@ -16,14 +16,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="gIV-nr-Koe">
-                                <rect key="frame" x="20" y="160" width="374" height="682"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="gIV-nr-Koe">
+                                <rect key="frame" x="20" y="108" width="374" height="734"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="k4L-ia-3KL">
-                                        <rect key="frame" x="0.0" y="0.0" width="374" height="341"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="359"/>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6C3-eS-Vts">
-                                        <rect key="frame" x="0.0" y="341" width="374" height="341"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading..." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="6C3-eS-Vts">
+                                        <rect key="frame" x="0.0" y="375" width="374" height="359"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -41,10 +41,23 @@
                             <constraint firstItem="gIV-nr-Koe" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="bc5-7E-Afr"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="Plx-nd-QDq"/>
+                    <navigationItem key="navigationItem" largeTitleDisplayMode="never" id="Plx-nd-QDq">
+                        <barButtonItem key="leftBarButtonItem" title="Previous Day" id="31R-9H-5lb">
+                            <connections>
+                                <action selector="buttonPressed:" destination="BYZ-38-t0r" id="YTV-7R-JMt"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Next Day" id="oJZ-kR-9DL">
+                            <connections>
+                                <action selector="buttonPressed:" destination="BYZ-38-t0r" id="3vM-ui-TB8"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="descriptionLabel" destination="6C3-eS-Vts" id="QiY-iS-QaK"/>
                         <outlet property="imageView" destination="k4L-ia-3KL" id="ZsV-xl-yng"/>
+                        <outlet property="nextDayButton" destination="oJZ-kR-9DL" id="nYG-iz-c9n"/>
+                        <outlet property="prevDayButton" destination="31R-9H-5lb" id="Wqu-FD-xjO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

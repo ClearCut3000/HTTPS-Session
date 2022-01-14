@@ -10,41 +10,83 @@ import UIKit
 class ViewController: UIViewController {
 
   //MARK: - Properties
-  let url = URL(string: "https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY")!
+
+  var date = Date()
 
   //MARK - Outlets
+  @IBOutlet var prevDayButton: UIBarButtonItem!
+  @IBOutlet var nextDayButton: UIBarButtonItem!
   @IBOutlet var imageView: UIImageView!
   @IBOutlet var descriptionLabel: UILabel!
 
   //MARK: - View lifecycle
   override func viewDidLoad() {
     super.viewDidLoad()
-    loadReguest()
+    nextDayButton.isEnabled = false
+    loadReguest(date: date)
   }
 
   //MARK: - Methods
-  func loadReguest(){
+  func loadReguest(date: Date){
+    let formatter = DateFormatter()
+    formatter.dateFormat = "yyyy-MM-dd"
+
+    let stringDate = formatter.string(from: date)
+
+    let query: [String: String] = [
+      "api_key": "DEMO_KEY",
+      "date": stringDate,
+    ]
+
+    let baseUrl = URL(string: "https://api.nasa.gov/planetary/apod")!
+
+    navigationItem.title = "Loading... \(stringDate)"
+
+    let url = baseUrl.withQueries(query)!
     let task = URLSession.shared.dataTask(with: url) { data, response, error in
       guard let data = data else {
         print (#function, #line, error?.localizedDescription ?? "no description")
         return
       }
-      
-
       let decoder = JSONDecoder()
       guard let photoInfo = try? decoder.decode(PhotoInfo.self, from: data) else {
-        print ("Can't decode as PhotoInfo")
         guard let stringData = String(data: data, encoding: .utf8) else {
-          print (#line, #function, "ERROR: can't decode \(data)")
+          print (#line, #function, "ERROR: can't decode \(data) as UTF8")
           return
         }
-        print (stringData)
+        print ("Can't decode data from \(stringData)")
         return
       }
-      print(photoInfo)
+
+      OperationQueue.main.addOperation {
+        self.imageView.image = nil
+      }
+
+      URLSession.shared.dataTask(with: photoInfo.url) { imageData, _, _ in
+        guard let imageData = imageData else { return }
+        OperationQueue.main.addOperation {
+          self.imageView.image = UIImage(data: imageData)
+        }
+      }.resume()
+      DispatchQueue.main.async {
+        self.navigationItem.title = photoInfo.title
+        self.descriptionLabel.text = photoInfo.description
+      }
     }
     task.resume()
   }
 
+//MARK: - Actions
+  @IBAction func buttonPressed(_ sender: UIBarButtonItem) {
+    switch sender {
+    case prevDayButton:
+      date = date.addingTimeInterval(-24 * 60 * 60)
+      loadReguest(date: date)
+    case nextDayButton:
+      break
+    default:
+      return
+    }
+  }
 }
 
