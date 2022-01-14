@@ -76,17 +76,23 @@ class ViewController: UIViewController {
     task.resume()
   }
 
-//MARK: - Actions
+  //MARK: - Actions
   @IBAction func buttonPressed(_ sender: UIBarButtonItem) {
     switch sender {
     case prevDayButton:
       date = date.addingTimeInterval(-24 * 60 * 60)
       loadReguest(date: date)
+      nextDayButton.isEnabled = true
     case nextDayButton:
-      break
+      let tomorrow = date.addingTimeInterval(24 * 60 * 60)
+      let afterTomorrow = tomorrow.addingTimeInterval(24 * 60 * 60)
+      nextDayButton.isEnabled = afterTomorrow <= Date()
+      guard tomorrow <= Date() else { return }
+date = tomorrow
     default:
       return
     }
+    loadReguest(date: date)
   }
 }
 

@@ -42,12 +42,12 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" largeTitleDisplayMode="never" id="Plx-nd-QDq">
-                        <barButtonItem key="leftBarButtonItem" title="Previous Day" id="31R-9H-5lb">
+                        <barButtonItem key="leftBarButtonItem" title="⟸" id="31R-9H-5lb">
                             <connections>
                                 <action selector="buttonPressed:" destination="BYZ-38-t0r" id="YTV-7R-JMt"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Next Day" id="oJZ-kR-9DL">
+                        <barButtonItem key="rightBarButtonItem" title="⟹" id="oJZ-kR-9DL">
                             <connections>
                                 <action selector="buttonPressed:" destination="BYZ-38-t0r" id="3vM-ui-TB8"/>
                             </connections>

@@ -13,7 +13,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-    // Override point for customization after application launch.
+    URLCache.shared = URLCache(
+      memoryCapacity: 10_000_000,
+      diskCapacity: 20_000_000,
+      diskPath: NSTemporaryDirectory()
+    )
     return true
   }
 
